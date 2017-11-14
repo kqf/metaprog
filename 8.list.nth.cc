@@ -49,8 +49,7 @@ struct Nth<LST, 0>
 int main(int argc, char const * argv[])
 {
     typedef Lst< Int<1>, Lst< Int<2>, Lst< Int<3> > > > OneTwoThree;
-    // TODO: Check this one
     typedef Nth< OneTwoThree, 1 > First;
-    std::cout << "First Element" << First::result << std::endl;
+    std::cout << "First Element" << First::result::value << std::endl;
     return 0;
 }
