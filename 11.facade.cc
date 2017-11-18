@@ -1,3 +1,6 @@
+#include <iostream>
+using std::cout;
+
 struct NIL
 {
     typedef NIL head;
@@ -11,13 +14,17 @@ struct Lst
     typedef T tail;
 };
 
-template <class X, class Y>
-struct Eq { static const bool result = false; };
-template <class X>
-struct Eq<X, X> { static const bool result = true; };
+template <class X, class Y> struct Eq
+{
+    static const bool result = false;
+};
 
-template <class Elm, class LST>
-struct Position
+template <class X> struct Eq<X, X>
+{
+    static const bool result = true;
+};
+
+template <class Elm, class LST> struct Position
 {
 private:
     typedef typename LST::head H;
@@ -27,8 +34,7 @@ public:
     static const int result = found ? 1 : 1 + Position<Elm, T>::result;
 };
 
-template <class Elm>
-struct Position<Elm, NIL>
+template <class Elm> struct Position<Elm, NIL>
 {
     static const int result = 0;
 };
@@ -43,9 +49,6 @@ public:
         return Position< PK, Lst >::result;
     }
 };
-
-#include <iostream>
-using std::cout;
 
 int main()
 {
