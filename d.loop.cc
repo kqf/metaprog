@@ -1,25 +1,31 @@
 #include "iostream"
-using std::cout
+using std::cout;
+using std::endl;
 
-template< int i >
-class LOOP
+template<int i> class LOOP
 {
 public:
-  static inline void EXEC()
-  {
-    cout << "A-" << i << " ";
-    LOOP < i - 1 >::EXEC();
-    cout << "B-" << i << " ";
-  }
+    static inline void evaluate()
+    {
+        cout << "Prefix  = " << i << " ";
+        LOOP < i - 1 >::evaluate();
+        cout << "Postfix = " << i << " ";
+    }
 };
 
-class LOOP< 0 >
+template<> class LOOP <0>
 {
 public:
-  static inline void EXEC()
-  {
-    cout << "A-" << i;
-    cout << "\n";
-    cout << "B-" << i;
-  }
+    static inline void evaluate()
+    {
+        cout << "Prefix  = " << 0;
+        cout << "\n";
+        cout << "Postfix = " << 0 << " ";
+    }
 };
+
+int main()
+{
+    LOOP<9>::evaluate();
+    cout << endl;
+}

@@ -1,20 +1,11 @@
-template< bool Condition, class THEN, class ELSE > struct IF
-{
-	template< bool Condition > struct selector
-	{typedef THEN SELECT_CLASS;};
-
-	struct selector< false >
-	{typedef ELSE SELECT_CLASS;};
-
-	typedef selector< Condition >::SELECT_CLASS RESULT;
-};
-
+#include<iostream>
+using std::cout;
+using std::endl;
 
 struct THEN
 {
 	static int func()
 	{
-		cout << "Inside THEN";
 		return 42;
 	}
 };
@@ -23,9 +14,25 @@ struct ELSE
 {
 	static int func()
 	{
-		cout << "Inside ELSE";
 		return 0;
 	}
+};
+
+
+template< bool CONDITION_TYPE > struct selector
+{
+	typedef THEN SELECT_CLASS;
+};
+
+template<> struct selector < false >
+{
+	typedef ELSE SELECT_CLASS;
+};
+
+
+template< bool Condition, class THEN, class ELSE > struct IF
+{
+	typedef typename selector<Condition>::SELECT_CLASS RESULT;
 };
 
 int main(int argc, char * argv[])

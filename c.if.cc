@@ -1,25 +1,22 @@
-template <bool Condition, typename TrueResult, typename FalseResult>
-class if_;
+#include "iostream"
+using std::cout;
+using std::endl;
 
-template <typename TrueResult, typename FalseResult>
-struct if_<true, TrueResult, FalseResult>
+template <bool Condition, typename True, typename False> class if_;
+
+template <typename True, typename False> struct if_<true, True, False>
 {
-	typedef TrueResult result;
+	typedef True result;
 };
 
-template <typename TrueResult, typename FalseResult>
-struct if_<false, TrueResult, FalseResult>
+template <typename True, typename False> struct if_<false, True, False>
 {
-	typedef FalseResult result;
+	typedef False result;
 };
 
 int main()
 {
 	typename if_<true, int, void *>::result number(3);
 	typename if_<false, int, void *>::result pointer(&number);
-
-	typedef typename if_ < (sizeof(void *) > sizeof(uint32_t)), uint64_t, uint32_t >::result
-	integral_ptr_t;
-
-	integral_ptr_t converted_pointer = reinterpret_cast<integral_ptr_t>(pointer);
+	typedef typename if_ < (sizeof(void *) > sizeof(int)), float, int >::result integral_ptr_t;
 }

@@ -1,43 +1,41 @@
 #include <iostream>
 
-template <int p, int i>
-class is_prime
+template <int p, int i> class IsPrime
 {
 public:
-	enum { prim = ( (p % i) && is_prime < p, i - 1 >::prim ) };
+	enum { prim = ( (p % i) && IsPrime < p, i - 1 >::prim ) };
 };
 
-template <int p>
-class is_prime<p, 1>
+template <int p> class IsPrime <p, 1>
 {
 public:
 	enum { prim = 1 };
 };
 
-template <int i>
-class Prime_print        // primary template for loop to print prime numbers
+// primary template for loop to print prime numbers
+template <int i> class PrimePrint
 {
 public:
-	Prime_print < i - 1 > a;
-	enum { prim = is_prime < i, i - 1 >::prim };
-	void f()
+	PrimePrint < i - 1 > a;
+	enum { prim = IsPrime < i, i - 1 >::prim };
+	void eval()
 	{
-		a.f();
+		a.eval();
 		if (prim)
 			std::cout << "prime number:" << i << std::endl;
 	}
 };
 
-template<>
-class Prime_print<1>     // full specialization to end the loop
+// full specialization to end the loop
+template<> class PrimePrint<1>
 {
 public:
 	enum { prim = 0 };
-	void f() {}
+	void eval() {}
 };
 
 int main()
 {
-	Prime_print<18> a;
-	a.f();
+	PrimePrint<18> a;
+	a.eval();
 }
